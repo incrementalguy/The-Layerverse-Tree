@@ -1,3 +1,5 @@
+const { useEffect } = require("react")
+
 addLayer("l", {
     name: "layer", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "L", // This appears on the layer's node. Default is the id with the first letter capitalized
@@ -25,7 +27,7 @@ addLayer("l", {
         {key: "l", description: "L: Reset for layers", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
-    upgrades: {
+upgrades: {
     11: {
         title: "just starting out",
         description: "2x points",
@@ -44,20 +46,35 @@ addLayer("l", {
         }
     },
     13: {
-        title: "WOW! thats a bigger number than 2!!",
+        title: "WOW!! is that a number bigger than 2!??!?!",
         description: "3x points",
         cost: new Decimal(5),
         unlocked() {
             if (hasUpgrade('l', 12)) return true
             return false
-        }
-        
+        },
+     14: {
+        title: "something boosts something",
+        description: "3x points",
+        cost: new Decimal(5),
+        unlocked() {
+            if (hasUpgrade('l', 13)) return true
+            return false
+        },    
+        effect() {
+            let eff = new Decimal(1)
+            if (hasUpgrade('l', 14)) eff = player.l.points.plus(1).pow(0.5)
+            return eff
+        },
+        effectDisplay() { return format(upgradeEffect(this.layer, this.id))+"x" }, // Add formatting to the effect
     },
-  
-    
-}
 
+    },
+   
+},
+    
 })
+
 addLayer("p", {
     name: "Prestige", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "P", // This appears on the layer's node. Default is the id with the first letter capitalized
@@ -91,6 +108,13 @@ addLayer("p", {
         title: "wow another layer",
         description: "5x points",
         cost: new Decimal(1),
+        
+    },
+    
+    12: {
+        title: "another upg in another layer",
+        description: "2x layers",
+        cost: new Decimal(2),
         
     },
 }
