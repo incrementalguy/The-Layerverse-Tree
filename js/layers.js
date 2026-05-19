@@ -224,7 +224,7 @@ addLayer("u", {
      12: {
         name: "powers 2 electric boogaloo",
         challengeDescription: "points are raised to ^0.25",
-        goalDescription: "reach 10,000 points",
+        goalDescription: "reach 100,000 points",
         rewardDescription: "points gain is raised by ^1.16",
         unlocked() {
             if (hasUpgrade('u', 12)) return true
